@@ -395,7 +395,8 @@ void UAlsAnimationInstance::RefreshView(const float DeltaTime)
 
 bool UAlsAnimationInstance::IsSpineRotationAllowed()
 {
-	return RotationMode == AlsRotationModeTags::Aiming;
+	//return RotationMode == AlsRotationModeTags::Aiming;
+	return RotationMode == AlsRotationModeTags::Aiming || Character->HipFiring || Character->FirstPersonConstantAiming && ViewMode == AlsViewModeTags::FirstPerson; //added hipfiring tony   
 }
 
 void UAlsAnimationInstance::RefreshSpine(const float SpineBlendAmount, const float DeltaTime)
@@ -1767,7 +1768,8 @@ void UAlsAnimationInstance::StopQueuedTransitionAndTurnInPlaceAnimations()
 
 bool UAlsAnimationInstance::IsRotateInPlaceAllowed()
 {
-	return RotationMode == AlsRotationModeTags::Aiming || ViewMode == AlsViewModeTags::FirstPerson;
+	//return RotationMode == AlsRotationModeTags::Aiming || ViewMode == AlsViewModeTags::FirstPerson;
+	return RotationMode == AlsRotationModeTags::Aiming || ViewMode == AlsViewModeTags::FirstPerson || Character->HipFiring;//added hipfiring tony
 }
 
 void UAlsAnimationInstance::RefreshRotateInPlace()
@@ -1830,7 +1832,8 @@ void UAlsAnimationInstance::RefreshRotateInPlace()
 
 bool UAlsAnimationInstance::IsTurnInPlaceAllowed()
 {
-	return RotationMode == AlsRotationModeTags::ViewDirection && ViewMode != AlsViewModeTags::FirstPerson;
+	//return RotationMode == AlsRotationModeTags::ViewDirection && ViewMode != AlsViewModeTags::FirstPerson;
+	return RotationMode == AlsRotationModeTags::ViewDirection && ViewMode != AlsViewModeTags::FirstPerson || Character->HipFiring || Character->FirstPersonConstantAiming && ViewMode == AlsViewModeTags::FirstPerson; // or hipfire by tony
 }
 
 void UAlsAnimationInstance::InitializeTurnInPlace()

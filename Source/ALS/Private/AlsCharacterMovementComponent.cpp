@@ -121,7 +121,8 @@ FSavedMovePtr FAlsNetworkPredictionData::AllocateNewMove()
 	return MakeShared<FAlsSavedMove>();
 }
 
-UAlsCharacterMovementComponent::UAlsCharacterMovementComponent()
+UAlsCharacterMovementComponent::UAlsCharacterMovementComponent(const FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer)
 {
 	SetNetworkMoveDataContainer(MoveDataContainer);
 
@@ -1041,4 +1042,25 @@ bool UAlsCharacterMovementComponent::TryConsumePrePenetrationAdjustmentVelocity(
 	bPrePenetrationAdjustmentVelocityValid = false;
 
 	return true;
+}
+
+
+//Added by tony 
+
+void UAlsCharacterMovementComponent::InitializeComponent() // added by tony 
+{
+	Super::InitializeComponent();
+}
+
+
+
+bool UAlsCharacterMovementComponent::IsCustomMovementMode(EMovementMode InCustomMovementMode) const
+{
+	return MovementMode == MOVE_Custom && CustomMovementMode == InCustomMovementMode;
+}
+
+
+bool UAlsCharacterMovementComponent::IsMovementMode(EMovementMode InMovementMode) const
+{
+	return InMovementMode == MovementMode;
 }

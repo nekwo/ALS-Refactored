@@ -1,6 +1,7 @@
 #pragma once
 
-#include "GameFramework/CharacterMovementComponent.h"
+//#include "GameFramework/CharacterMovementComponent.h"
+#include "Character/LyraCharactermovementComponent.h"  //lyra integration by tony
 #include "Settings/AlsMovementSettings.h"
 #include "AlsCharacterMovementComponent.generated.h"
 
@@ -71,7 +72,7 @@ public:
 };
 
 UCLASS(ClassGroup = "ALS")
-class ALS_API UAlsCharacterMovementComponent : public UCharacterMovementComponent
+class ALS_API UAlsCharacterMovementComponent : public ULyraCharacterMovementComponent // lyra integration by tony
 {
 	GENERATED_BODY()
 
@@ -128,7 +129,7 @@ public:
 	FAlsPhysicsRotationDelegate OnPhysicsRotation;
 
 public:
-	UAlsCharacterMovementComponent();
+	UAlsCharacterMovementComponent(const FObjectInitializer& ObjectInitializer); // added by tony to match lyra
 
 #if WITH_EDITOR
 	virtual bool CanEditChange(const FProperty* Property) const override;
@@ -219,6 +220,17 @@ public:
 	void SetInputBlocked(bool bNewInputBlocked);
 
 	bool TryConsumePrePenetrationAdjustmentVelocity(FVector& OutVelocity);
+
+
+	// Tony
+protected:
+	virtual void InitializeComponent() override;
+
+
+public:
+	UFUNCTION(BlueprintPure) bool IsCustomMovementMode(EMovementMode InCustomMovementMode) const;
+	UFUNCTION(BlueprintPure) bool IsMovementMode(EMovementMode InMovementMode) const;
+	//---
 };
 
 inline const FAlsMovementGaitSettings& UAlsCharacterMovementComponent::GetGaitSettings() const

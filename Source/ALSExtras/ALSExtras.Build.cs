@@ -11,8 +11,8 @@ public class ALSExtras : ModuleRules
 		CppCompileWarningSettings.NonInlinedGenCppWarningLevel = WarningLevel.Warning;
 
 		PublicDependencyModuleNames.AddRange([
-			"Core", "CoreUObject", "Engine", "AIModule", "ALS"
-		]);
+			"Core", "CoreUObject", "Engine", "AIModule", "ALS", "LyraGame", "GameplayTags", "GameplayAbilities", "ModularGameplay", "ModularGameplayActors"
+        ]);
 
 		PrivateDependencyModuleNames.AddRange([
 			"EnhancedInput", "ALSCamera"

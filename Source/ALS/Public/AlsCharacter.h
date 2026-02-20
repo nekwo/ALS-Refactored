@@ -1,6 +1,7 @@
 #pragma once
 
-#include "GameFramework/Character.h"
+//#include "GameFramework/Character.h"
+#include "Character/LyraCharacter.h" 
 #include "State/AlsLocomotionState.h"
 #include "State/AlsMantlingState.h"
 #include "State/AlsMovementBaseState.h"
@@ -19,7 +20,7 @@ class UAlsAnimationInstance;
 class UAlsMantlingSettings;
 
 UCLASS(AutoExpandCategories = ("Settings|Als Character", "Settings|Als Character|Desired State"))
-class ALS_API AAlsCharacter : public ACharacter
+class ALS_API AAlsCharacter : public ALyraCharacter
 {
 	GENERATED_BODY()
 
@@ -27,7 +28,7 @@ protected:
 	UPROPERTY(BlueprintReadOnly, Category = "Als Character")
 	TObjectPtr<UAlsCharacterMovementComponent> AlsCharacterMovement;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Settings|Als Character")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Als Character") //change to blueprint readwrite tony
 	TObjectPtr<UAlsCharacterSettings> Settings;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Settings|Als Character")
@@ -606,6 +607,39 @@ private:
 	void DisplayDebugTraces(const UCanvas* Canvas, float Scale, float HorizontalLocation, float& VerticalLocation) const;
 
 	void DisplayDebugMantling(const UCanvas* Canvas, float Scale, float HorizontalLocation, float& VerticalLocation) const;
+
+//--------------added by tony 
+
+public:
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)// added by tony
+		bool InSwimmingMode;
+
+	void ToggleSliding(); // added by tony
+
+	UFUNCTION(Server, Reliable)
+	void ServerToggleSliding();
+
+	//void TogglePhysSlide();
+	//void StopPhysSlide();
+
+	FCollisionQueryParams GetIgnoreCharacterParams() const;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, ReplicatedUsing = OnRep_HipFiring, Category = "Settings|Als Character")
+	bool HipFiring = false;
+
+	UFUNCTION()
+	void OnRep_HipFiring();
+
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Als Character")
+	bool FirstPersonConstantAiming = false;
+
+protected:
+	/*UFUNCTION(BlueprintNativeEvent, Category = "Eternia")
+	void OnRoll();*/
+
+	//-------------------------------
 };
 
 inline const UAlsCharacterSettings* AAlsCharacter::GetSettings() const

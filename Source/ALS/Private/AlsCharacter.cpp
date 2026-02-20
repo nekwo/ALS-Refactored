@@ -1945,3 +1945,24 @@ void AAlsCharacter::RefreshViewRelativeTargetYawAngle()
 	LocomotionState.ViewRelativeTargetYawAngle = FMath::UnwindDegrees(UE_REAL_TO_FLOAT(
 		ViewState.Rotation.Yaw - LocomotionState.TargetYawAngle));
 }
+
+// added by tony 
+void AAlsCharacter::ToggleSliding()
+{
+	if (GetLocalRole() == ROLE_AutonomousProxy)
+	{
+		ServerToggleSliding();
+	}
+
+	//TogglePhysSlide();
+}
+
+void AAlsCharacter::OnRep_HipFiring()
+{
+}
+
+void AAlsCharacter::ServerToggleSliding_Implementation()
+{
+	ToggleSliding();
+}
+///--

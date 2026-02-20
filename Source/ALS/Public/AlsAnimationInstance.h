@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Animation/AnimInstance.h"
+//#include "Animation/AnimInstance.h"
+#include "Animation/LyraAnimInstance.h"
 #include "Engine/World.h"
 #include "State/AlsControlRigInput.h"
 #include "State/AlsCrouchingState.h"

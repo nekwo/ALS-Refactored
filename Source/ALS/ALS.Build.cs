@@ -11,12 +11,12 @@ public class ALS : ModuleRules
 		CppCompileWarningSettings.NonInlinedGenCppWarningLevel = WarningLevel.Warning;
 
 		PublicDependencyModuleNames.AddRange([
-			"Core", "CoreUObject", "Engine", "GameplayTags", "AnimGraphRuntime", "RigVM", "ControlRig"
-		]);
+			"Core", "CoreUObject", "Engine", "GameplayTags", "AnimGraphRuntime", "RigVM", "ControlRig", "LyraGame","AIModule","ModularGameplay", "ModularGameplayActors", "GameplayAbilities"
+        ]);
 
 		PrivateDependencyModuleNames.AddRange([
-			"EngineSettings", "NetCore", "PhysicsCore", "Niagara"
-		]);
+			"EngineSettings", "NetCore", "PhysicsCore", "Niagara","Core", "CoreUObject", "Engine", "GameplayTags", "AnimGraphRuntime", "RigVM", "ControlRig",  "LyraGame"
+        ]);
 
 		if (target.Type == TargetRules.TargetType.Editor)
 		{

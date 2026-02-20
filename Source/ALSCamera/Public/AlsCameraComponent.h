@@ -115,7 +115,7 @@ public:
 	void SetRightShoulder(bool bNewRightShoulder);
 
 	UFUNCTION(BlueprintPure, Category = "ALS|Camera", Meta = (ReturnDisplayName = "Camera Location"))
-	FVector GetFirstPersonCameraLocation() const;
+	virtual FVector GetFirstPersonCameraLocation() const; //tony made virtual
 
 	UFUNCTION(BlueprintPure, Category = "ALS|Camera", Meta = (ReturnDisplayName = "Pivot Location"))
 	FVector GetThirdPersonPivotLocation() const;
@@ -126,8 +126,8 @@ public:
 	UFUNCTION(BlueprintPure, Category = "ALS|Camera")
 	void GetViewInfo(FMinimalViewInfo& ViewInfo) const;
 
-private:
-	void TickCamera(float DeltaTime, bool bAllowLag = true);
+public: //made public by tony from private
+	virtual void TickCamera(float DeltaTime, bool bAllowLag = true); //tony made virtual
 
 	FRotator CalculateCameraRotation(const FRotator& CameraTargetRotation, float DeltaTime, bool bAllowLag) const;
 
